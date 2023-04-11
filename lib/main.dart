@@ -23,15 +23,26 @@ class App extends StatelessWidget {
   }
 }
 
+// riverpod Provider
+final currentDate = Provider<DateTime>((ref) => DateTime.now());
+
 // riverpod Consumer
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(currentDate);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page'),
+      ),
+      body: Center(
+        child: Text(
+          date.toIso8601String(),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
     );
   }
